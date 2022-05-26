@@ -1,0 +1,28 @@
+name: Rust
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: cargo build --features mysql --verbose
+    - name: Run tests with mysql features
+      run: cargo test --features mysql --verbose
+    - name: Run tests with postgresql features
+      run: cargo test --features postgresql --verbose
+    - name: Run tests with mssql features
+      run: cargo test --features mssql --verbose
+    - name: Run tests with sqlite features
+      run: cargo test --features sqlite --verbose
