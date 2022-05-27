@@ -1,10 +1,10 @@
-use crate::table_column;
+use crate::column;
 use crate::error::SqlError;
 
 #[derive(Clone, Debug)]
 pub struct Sql {
     pub value: String,
-    pub prepare_value: Option<Vec<table_column::Values>>,
+    pub prepare_value: Option<Vec<column::ColumnValue>>,
 }
 
 impl Default for Sql {
@@ -31,7 +31,7 @@ impl Sql {
     self.value.push_str(sub_value);
     self
   }
-  pub fn push_prepare_value(&mut self, sub_prepare_value: &Vec<table_column::Values>) -> &mut Self {
+  pub fn push_prepare_value(&mut self, sub_prepare_value: &Vec<column::ColumnValue>) -> &mut Self {
     if let Some(prepare_value) = &mut self.prepare_value {
       prepare_value.extend_from_slice(sub_prepare_value);
     } else {
@@ -39,7 +39,7 @@ impl Sql {
     }
     self
   }
-  pub fn push_value_with_prepare_value(&mut self, sub_value: &str, sub_prepare_value: &Vec<table_column::Values>) -> &mut Self {
+  pub fn push_value_with_prepare_value(&mut self, sub_value: &str, sub_prepare_value: &Vec<column::ColumnValue>) -> &mut Self {
     self.value.push_str(sub_value);
     self.push_prepare_value(sub_prepare_value);
     self
@@ -84,5 +84,9 @@ impl Sql {
     } else {
         Ok(self.value.clone())
     }
+  }
+
+  pub fn is_empty(&self) -> bool {
+    self.value.is_empty() && self.prepare_value.is_none()
   }
 }

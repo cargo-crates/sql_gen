@@ -17,12 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build
-      run: cargo build --features mysql --verbose
+      run: cargo build --no-default-features --features mysql --verbose
     - name: Run tests with mysql features
-      run: cargo test --features mysql --verbose
+      run: cargo test --no-default-features --features mysql --verbose
     - name: Run tests with postgresql features
-      run: cargo test --features postgresql --verbose
+      run: cargo test --no-default-features --features postgresql --verbose
     - name: Run tests with mssql features
-      run: cargo test --features mssql --verbose
+      run: cargo test --no-default-features --features mssql --verbose
     - name: Run tests with sqlite features
-      run: cargo test --features sqlite --verbose
+      run: cargo test --no-default-features --features sqlite --verbose
