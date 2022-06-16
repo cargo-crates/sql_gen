@@ -1,15 +1,17 @@
 
+#![feature(let_chains)]
+
 pub mod const_data;
+pub mod methods;
 pub mod error;
 pub mod collectors;
 pub mod database;
 pub mod table;
 
-pub use const_data::GLOBAL_DB_KEY_MAPPING;
-pub use error::SqlError;
-pub use database::{define_database::{self, DefineDatabase}};
-pub use table::{column::{self, Column, column_type::{self, ColumnType, ColumnTypeable}}, define_table::{self, DefineTable}, manager::{self}};
+pub mod prelude;
+pub use prelude::*;
 
+pub use const_data::GLOBAL_DB_KEY_MAPPING;
 
 pub struct SqlGen {
 }
@@ -37,5 +39,3 @@ impl SqlGen {
         DefineTable::drop(table_name)
     }
 }
-
-pub mod prelude;

@@ -1,8 +1,8 @@
 pub mod column_type;
-pub mod column_value;
+// pub mod column_value;
 
 pub use column_type::{ColumnType, ColumnTypeAction, Boolean, Integer};
-pub use column_value::ColumnValue;
+// pub use column_value::ColumnValue;
 
 use crate::collectors::Sql;
 
