@@ -77,7 +77,7 @@ pub enum ColumnType {
 }
 
 impl ColumnType {
-  pub fn to_sql(&self, column: &crate::Column, table: &crate::Table) -> Option<Sql> {
+  pub fn to_sql(&self, column: &crate::Column, table: &crate::DefineTable) -> Option<Sql> {
     match self {
       ColumnType::Boolean(boolean) => {
         return boolean.to_sql(column, table)
@@ -136,7 +136,7 @@ impl ColumnType {
       // _ => None,
     }
   }
-  pub fn to_constraint_sql(&self, column: &Column, table: &crate::Table) -> Option<Sql> {
+  pub fn to_constraint_sql(&self, column: &Column, table: &crate::DefineTable) -> Option<Sql> {
     match self {
       ColumnType::Boolean(boolean) => {
         return boolean.to_constraint_sql(column, table)
@@ -215,11 +215,11 @@ pub trait ColumnTypeable {
   fn primary_key(&self) -> Option<bool> { None }
   fn set_primary_key(&mut self, _primary_key: bool) -> &mut Self { self }
 
-  fn foreign_key(&self) -> Option<&crate::table::ForeignKey> { None }
-  fn set_foreign_key(&mut self, _foreign_key: crate::table::ForeignKey) -> &mut Self { self }
+  fn foreign_key(&self) -> Option<&crate::define_table::ForeignKey> { None }
+  fn set_foreign_key(&mut self, _foreign_key: crate::define_table::ForeignKey) -> &mut Self { self }
 
-  fn to_sql(&self, column: &Column, table: &crate::Table) -> Option<Sql>;
-  fn to_constraint_sql(&self, column: &Column, _table: &crate::Table) -> Option<Sql> {
+  fn to_sql(&self, column: &Column, table: &crate::DefineTable) -> Option<Sql>;
+  fn to_constraint_sql(&self, column: &Column, _table: &crate::DefineTable) -> Option<Sql> {
     let mut sql = Sql::default();
     if let Some(primary_key) = self.primary_key() {
       if primary_key {

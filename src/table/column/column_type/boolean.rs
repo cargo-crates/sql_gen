@@ -46,7 +46,7 @@ impl ColumnTypeable for Boolean {
   fn primary_key(&self) -> Option<bool> { self.primary_key }
   fn set_primary_key(&mut self, primary_key: bool) -> &mut Self { self.primary_key = Some(primary_key); self }
 
-  fn to_sql(&self, _column: &crate::Column, _table: &crate::Table) -> Option<Sql> {
+  fn to_sql(&self, _column: &crate::Column, _table: &crate::DefineTable) -> Option<Sql> {
     let mut sql = Sql::default();
     sql.push_value(crate::GLOBAL_DB_KEY_MAPPING.get("boolean").unwrap());
     if let Some(null) = self.null {

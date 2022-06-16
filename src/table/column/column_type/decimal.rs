@@ -64,7 +64,7 @@ impl ColumnTypeable for Decimal {
     self
   }
 
-  fn to_sql(&self, _column: &crate::Column, _table: &crate::Table) -> Option<Sql> {
+  fn to_sql(&self, _column: &crate::Column, _table: &crate::DefineTable) -> Option<Sql> {
     let mut sql = Sql::default();
     let r#type = crate::const_data::GLOBAL_DB_KEY_MAPPING.get("decimal").unwrap();
     sql.push_value(r#type);

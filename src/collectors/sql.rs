@@ -31,6 +31,11 @@ impl Sql {
     self.value.push_str(sub_value);
     self
   }
+  pub fn push_quote_value(&mut self, quote: &str, value: &str) -> &mut Self {
+    self.push_value(quote);
+    self.push_value(value);
+    self.push_value(quote)
+  }
   pub fn push_prepare_value(&mut self, sub_prepare_value: &Vec<column::ColumnValue>) -> &mut Self {
     if let Some(prepare_value) = &mut self.prepare_value {
       prepare_value.extend_from_slice(sub_prepare_value);

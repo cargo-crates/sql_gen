@@ -3,7 +3,7 @@ use crate::{column::column_type::{ColumnType, ColumnTypeable}};
 
 #[derive(Clone, Debug)]
 pub struct ForeignKey {
-  foreign_key: Option<crate::table::ForeignKey>,
+  foreign_key: Option<crate::define_table::ForeignKey>,
 }
 
 impl Default for ForeignKey {
@@ -41,13 +41,13 @@ impl ColumnTypeable for ForeignKey {
   //   self
   // }
 
-  fn foreign_key(&self) -> Option<&crate::table::ForeignKey> { self.foreign_key.as_ref() }
-  fn set_foreign_key(&mut self, foreign_key: crate::table::ForeignKey) -> &mut Self {
+  fn foreign_key(&self) -> Option<&crate::define_table::ForeignKey> { self.foreign_key.as_ref() }
+  fn set_foreign_key(&mut self, foreign_key: crate::define_table::ForeignKey) -> &mut Self {
     self.foreign_key = Some(foreign_key);
     self
   }
 
-  fn to_sql(&self, _column: &crate::Column, _table: &crate::Table) -> Option<Sql> {
+  fn to_sql(&self, _column: &crate::Column, _table: &crate::DefineTable) -> Option<Sql> {
     None
   }
 }

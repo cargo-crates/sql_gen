@@ -26,7 +26,7 @@ impl Column {
   pub fn column_name(&self) -> &str {
     self.column_names.get(0).unwrap()
   }
-  pub fn to_sql(&self, table: &crate::Table) -> Option<Sql> {
+  pub fn to_sql(&self, table: &crate::DefineTable) -> Option<Sql> {
     let mut final_ret = None;
     match &self.column_type_action {
       ColumnTypeAction::AddColumn { position } | ColumnTypeAction::ModifyColumn { position } => {
@@ -77,7 +77,7 @@ impl Column {
     }
     final_ret
   }
-  pub fn to_constraint_sql(&self, table: &crate::Table) -> Option<Sql> {
+  pub fn to_constraint_sql(&self, table: &crate::DefineTable) -> Option<Sql> {
     self.column_type.to_constraint_sql(self, table)
   }
 }

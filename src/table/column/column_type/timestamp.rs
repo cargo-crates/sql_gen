@@ -76,7 +76,7 @@ impl ColumnTypeable for Timestamp {
     self
   }
 
-  fn to_sql(&self, _column: &crate::Column, _table: &crate::Table) -> Option<Sql> {
+  fn to_sql(&self, _column: &crate::Column, _table: &crate::DefineTable) -> Option<Sql> {
     let mut sql = Sql::default();
     let r#type = crate::const_data::GLOBAL_DB_KEY_MAPPING.get("timestamp").unwrap();
     sql.push_value(r#type);
@@ -90,7 +90,7 @@ impl ColumnTypeable for Timestamp {
     // }
     if let Some(on_create_current_timestamp) = self.on_create_current_timestamp {
       if on_create_current_timestamp {
-        sql.push_value(&format!(" DEFAULT {}", "CURRENT_TIMESTAMP"));  
+        sql.push_value(&format!(" DEFAULT {}", "CURRENT_TIMESTAMP"));
       }
     } else if let Some(ref default) = self.default {
       sql.push_value(&format!(" DEFAULT {}", default));

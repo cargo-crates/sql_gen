@@ -54,7 +54,7 @@ impl ColumnTypeable for PrimaryKey {
   //   self
   // }
 
-  fn to_sql(&self, _column: &crate::Column, _table: &crate::Table) -> Option<Sql> {
+  fn to_sql(&self, _column: &crate::Column, _table: &crate::DefineTable) -> Option<Sql> {
     None
   }
 }
